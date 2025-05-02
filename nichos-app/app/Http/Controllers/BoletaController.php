@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\enums\EstadoNotificacion;
 use App\enums\TipoBoleta;
 use App\enums\TipoContrato;
+use App\enums\TipoRol;
 use App\enums\Utiles;
 use App\Models\Boleta;
 use App\Models\Contrato;
@@ -117,6 +118,11 @@ class BoletaController extends Controller
     public function solicitudesBoletas()
     {
         $estado = request('estado');
+        if(session('usuario')->rol_id == TipoRol::AYUDANTE){
+            return view('admin.solicitudes-boletas')
+                ->with('boletas', self::getBoletasPorEstado2($estado))
+                ->with('title', self::getTitleBoleta($estado));
+        }
         return view('admin.solicitudes-boletas')
             ->with('boletas', self::getBoletasPorEstado($estado))
             ->with('title', self::getTitleBoleta($estado));
@@ -189,9 +195,21 @@ class BoletaController extends Controller
                    c.id_contrato, id_boleta, id_encargado, id_ocupante, id_nicho, c.estado as estado_contrato, fecha_inicio, fecha_finalizacion, fecha_limite
             from boleta b
             inner join contrato c on b.correlativo = c.id_boleta
-            where b.estado = ? and c.estado != 'SOLICITADO';
+            where b.estado = ?;
         ", [$estado]);
     }
+
+    public static function getBoletasPorEstado2($estado)
+    {
+        return DB::select("
+            select b.correlativo, id_usuario, costo, archivo, b.estado as estado_boleta, fecha_aprobacion, fecha_solicitado,
+                   c.id_contrato, id_boleta, id_encargado, id_ocupante, id_nicho, c.estado as estado_contrato, fecha_inicio, fecha_finalizacion, fecha_limite
+            from boleta b
+            inner join contrato c on b.correlativo = c.id_boleta
+            where b.estado = ? and c.estado != ?;
+        ", [$estado, TipoContrato::SOLICITADO]);
+    }
+
 
     public static function getBoletasPendientesDepago()
     {

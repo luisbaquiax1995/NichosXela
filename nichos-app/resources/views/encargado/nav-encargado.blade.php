@@ -40,6 +40,7 @@
                 @click.outside="open = false"
             >
                 <div class="p-4">
+
                     <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
                         <div
                             class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
@@ -54,6 +55,7 @@
                             <p class="mt-1 text-gray-600">Ver nichos disponibles</p>
                         </div>
                     </div>
+
                     <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
                         <div
                             class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
@@ -66,20 +68,6 @@
                                 <span class="absolute inset-0"></span>
                             </a>
                             <p class="mt-1 text-gray-600">Ver nichos ocupados</p>
-                        </div>
-                    </div>
-                    <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
-                        <div
-                            class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                            <img src="{{ asset('img/nichos2.svg') }}" alt="nichos" class="size-6">
-                        </div>
-                        <div class="flex-auto">
-                            <a href="{{ route('nicho.nichos', ['estado' => \App\enums\EstadoNicho::EN_EXHUMACION]) }}"
-                               class="block font-semibold text-gray-900">
-                                Nichos en exhumación
-                                <span class="absolute inset-0"></span>
-                            </a>
-                            <p class="mt-1 text-gray-600">Ver nichos en exhumación</p>
                         </div>
                     </div>
                 </div>
@@ -235,7 +223,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Dropdown Exhumaciones -->
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" @click.away="open = false" type="button"
@@ -300,9 +287,7 @@
                 </div>
             </div>
         </div>
-
         <!-- Notificcion -->
-
         <div x-data="{ open: false }" class="relative">
             <a href="{{ route('ver.notificaciones') }}"
                class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
