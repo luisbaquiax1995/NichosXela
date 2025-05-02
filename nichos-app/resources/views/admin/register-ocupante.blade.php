@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Laravel</title>
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+    @vite('resources/main.js')
+</head>
+<body>
+@php
+    $usuario = session('usuario')
+@endphp
+@if($usuario->rol_id == \App\enums\TipoRol::ADMINISTRADOR)
+    @include('admin.nav-admin')
+@elseif($usuario->rol_id == \App\enums\TipoRol::AYUDANTE)
+    @include('ayudante.nav-ayudante')
+@endif
+
+@include('utils.alerts')
+<div class="bg-white flex items-center justify-center min-h-screen">
+    <div class="p-6">
+        @include('admin.form-ocupante')
+    </div>
+</div>
+@vite('resources/js/focus-input.js')
+@vite('resources/js/alerts.js')
+@vite('resources/js/search-municipio.js')
+</body>
+</html>
