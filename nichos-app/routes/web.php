@@ -89,6 +89,12 @@ Route::get('/contratos', [ContratoController::class, 'listaContratos'])->name('c
 Route::get('/contrato-detalle/{id}', [ContratoController::class, 'detalleContrato'])->name('contrato.detalle');
 Route::get('/contratos-por-encargado', [ContratoController::class, 'listaContratosPorEncargado'])->name('contratos.getByEstado1');
 Route::get('/historico-contratos-nichos', [ContratoController::class, 'historicoNichosContratos'])->name('historico.contratos');
+Route::get('/actualizar-contrato/{id}/{estado}',[ContratoController::class, 'actualizarContrato'])->name('actualizar.contrato');
+Route::get('/form-nuevo-contrato', function (){
+    return view('ayudante.form-contrato');
+});
+Route::get('/contrato-nuevo', [ContratoController::class, 'nuevoContrato'])->name('contrato.nuevo');
+Route::post('/enviar.contrato', [ContratoController::class, 'enviarContrato'])->name('enviar.contrato');
 
 //control boletas
 Route::get('/boleta-solicitar/{idContrato}',[BoletaController::class, 'solicitarBoleta'])->name('boleta.solicitar');

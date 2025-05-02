@@ -92,6 +92,16 @@ class EncargadoController extends Controller
         ", [$id_usuario])[0];
     }
 
+    public static function getEncargadosByEstado($estado){
+        return DB::select("
+            select dpi, e.id_encargado
+            from encargado e
+            inner join usuario u on e.id_usuario = u.id_usuario
+            inner join persona p on e.id_persona = p.id_persona
+            where u.estado = ?;
+        ",[$estado]);
+    }
+
     /**
      * @param $id_encargado
      * @return mixed

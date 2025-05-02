@@ -19,4 +19,13 @@ class Ocupante extends Model
         'estado',
         'tipo'
     ];
+
+    public function persona(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Persona::class, 'id_persona');
+    }
+
+    public function municipio(){
+        return $this->belongsTo(Municipio::class, 'id_municipio');
+    }
 }

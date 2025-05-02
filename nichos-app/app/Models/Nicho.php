@@ -19,4 +19,11 @@ class Nicho extends Model
         'status',
         'tipo',
     ];
+
+    public function avenida(){
+        return $this->belongsTo(Calle::class, 'id_avenida');
+    }
+    public function calle(){
+        return $this->belongsTo(Calle::class, 'id_calle');
+    }
 }

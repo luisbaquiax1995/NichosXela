@@ -13,7 +13,8 @@ class OcupanteController extends Controller
 {
     //
 
-    public function addOcupante(){
+    public function addOcupante()
+    {
         try {
             $dpi = request('dpi');
             $nombre1 = request('nombre1');
@@ -32,7 +33,7 @@ class OcupanteController extends Controller
             DB::beginTransaction();
             $newOcupante = new Ocupante();
             $newPersona = new Persona();
-            if(!$persona){
+            if (!$persona) {
                 $newPersona->dpi = $dpi;
                 $newPersona->nombre1 = $nombre1;
                 $newPersona->nombre2 = $nombre2;
@@ -41,7 +42,7 @@ class OcupanteController extends Controller
                 $newPersona->genero = $genero;
                 $newPersona->save();
                 $newOcupante->id_persona = $newPersona->id_persona;
-            }else{
+            } else {
                 $newOcupante->id_persona = $persona->id_persona;
             }
             $newOcupante->fecha_nacimiento = $fechaNacimiento;
@@ -59,7 +60,7 @@ class OcupanteController extends Controller
             }
             DB::commit();
             return redirect('/ocupantes')->with('msg-success', 'Ocupante registrado correctamente.');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return back()->with('msg-error', "No se pudo registrar la ocupante: {$exception->getMessage()}");
         }
     }
@@ -69,9 +70,12 @@ class OcupanteController extends Controller
         $ocupante = Ocupante::find($id);
         echo json_encode($ocupante);
     }
-    public function ocupantes(){
-        return view('admin.ocupantes')->with('ocupantes',$this->getOcupantes(1));
+
+    public function ocupantes()
+    {
+        return view('admin.ocupantes')->with('ocupantes', $this->getOcupantes(1));
     }
+
     public function formOcupante()
     {
         return view('admin.register-ocupante');
@@ -80,12 +84,12 @@ class OcupanteController extends Controller
     public function editOcupante($id)
     {
         $ocupante = $this->getOcupanteById($id);
-        return view('admin.register-ocupante')->with('ocupante',$ocupante);
+        return view('admin.register-ocupante')->with('ocupante', $ocupante);
     }
 
     public function ocupantesEliminados()
     {
-        return view('admin.ocupantes')->with('ocupantes',$this->getOcupantes(0));
+        return view('admin.ocupantes')->with('ocupantes', $this->getOcupantes(0));
     }
 
     public function deleteOcupante($id)
@@ -94,9 +98,9 @@ class OcupanteController extends Controller
             $ocupante = Ocupante::find($id);
             $ocupante->estado = 0;
             $ocupante->save();
-            return back()->with('msg-success','Ocupante eliminado.');
-        }catch (\Exception $exception){
-            return back()->with('msg-error','No se pudo eliminar el ocupante');
+            return back()->with('msg-success', 'Ocupante eliminado.');
+        } catch (\Exception $exception) {
+            return back()->with('msg-error', 'No se pudo eliminar el ocupante');
         }
     }
 
@@ -127,6 +131,17 @@ class OcupanteController extends Controller
         inner join municipio m on o.id_municipio = m.id_municipio
         inner join departamento d on m.id_depto = d.id_depto
         where estado = ? order by tipo;
-        ",[$estado]);
+        ", [$estado]);
+    }
+
+    public static function getOcupantesNuevos()
+    {
+        return DB::select("
+            select dpi, o.id_ocupante
+            from ocupante o
+            inner join persona p on o.id_persona = p.id_persona
+            left join contrato c on o.id_ocupante = c.id_ocupante
+            where c.id_ocupante IS NULL;
+        ");
     }
 }

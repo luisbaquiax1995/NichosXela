@@ -189,7 +189,7 @@ class BoletaController extends Controller
                    c.id_contrato, id_boleta, id_encargado, id_ocupante, id_nicho, c.estado as estado_contrato, fecha_inicio, fecha_finalizacion, fecha_limite
             from boleta b
             inner join contrato c on b.correlativo = c.id_boleta
-            where b.estado = ?;
+            where b.estado = ? and c.estado != 'SOLICITADO';
         ", [$estado]);
     }
 
@@ -237,7 +237,7 @@ class BoletaController extends Controller
             from boleta b
             inner join contrato c on b.correlativo = c.id_boleta
             where id_ocupante = ?
-            and b.estado = 'SOLICITADO' or c.estado = 'SOLICITADO';
+            and b.estado = 'SOLICITADO';
         ", [$id_ocupante]);
         return $contrato ? $contrato[0] : null;
     }

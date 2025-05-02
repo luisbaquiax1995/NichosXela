@@ -13,6 +13,7 @@ class Calle extends Model
     protected $fillable = [
         'id_calle',
         'nombre_calle',
+        'numero_calle',
         'tipo'
     ];
     const CALLE = 'CALLE';

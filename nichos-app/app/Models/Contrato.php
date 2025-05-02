@@ -15,7 +15,7 @@ class Contrato extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_contrato',
-        'id_anteriro',
+        'id_anterior',
         'id_boleta',
         'id_encargado',
         'id_ocupante',

@@ -20,6 +20,8 @@
     @include('auditor.nav-auditor')
 @elseif($usuario->rol_id == \App\enums\TipoRol::ENCARGADO)
     @include('encargado.nav-encargado')
+@elseif($usuario->rol_id == \App\enums\TipoRol::AYUDANTE)
+    @include('ayudante.nav-ayudante')
 @endif
 @include('utils.alerts')
 <div>

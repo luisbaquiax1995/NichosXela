@@ -18,5 +18,8 @@ class Municipio extends Model
     protected $table = 'municipio';
     protected $primaryKey = 'id_municipio';
     public $timestamps = false;
-    protected $fillable = ['id_municipio', 'nombre_municipio', 'id_depto'];    
+    protected $fillable = ['id_municipio', 'nombre_municipio', 'id_depto'];
+    public function departamento(){
+        return $this->belongsTo(Departamento::class, 'id_depto');
+    }
 }

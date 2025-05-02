@@ -171,6 +171,44 @@
                 </div>
             </div>
         </div>
+        <!-- Dropdown contratos -->
+        <div x-data="{ open: false }" class="relative">
+            <button @click="open = !open" @click.away="open = false" type="button"
+                    class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                Contratos
+                <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 011.06 1.061l-4.24 4.24a.75.75 0 01-1.06 0l-4.24-4.24a.75.75 0 01.02-1.06z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </button>
+
+            <div
+                class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
+                x-show="open"
+                @click.outside="open = false"
+            >
+                <div class="p-4">
+                    <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
+                        <div
+                            class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                            </svg>
+
+                        </div>
+                        <div class="flex-auto">
+                            <a href="/form-nuevo-contrato"
+                               class="block font-semibold text-gray-900">
+                                Crear nuevo contrato
+                                <span class="absolute inset-0"></span>
+                            </a>
+                            <p class="mt-1 text-gray-600">Crea un nuevo contrato</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Dropdown boleta -->
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" @click.away="open = false" type="button"
