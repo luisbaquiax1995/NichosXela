@@ -128,12 +128,11 @@
                                                     <h5 class="text-blueGray-400 uppercase font-bold text-xs">
                                                         Total</h5>
                                                     <span class="font-bold text-xl">
-                                                    {{ ($adultos != null) ? $adultos[0]->cantidad + $adultos[1]->cantidad : 0 }}
                                                 </span>
                                                     <span class="text-blueGray-400 uppercase text-xs">
                                                     <div class="grid grid-cols-1">
                                                         <div>
-                                                            Hombres: {{ ($adultos != null) ? $adultos[0]->cantidad : 0 }}
+                                                            Hombres: {{ ($adultos[0] != null) ? $adultos[0]->cantidad : 0 }}
                                                         </div>
                                                         <div>
                                                             Mujeres: {{ ($adultos != null) ? $adultos[1]->cantidad : 0 }}

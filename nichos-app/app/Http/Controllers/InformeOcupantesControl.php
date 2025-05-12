@@ -59,7 +59,7 @@ class InformeOcupantesControl extends Controller
     public static function getAbuelos($estado)
     {
         $abuelos = DB::select("
-            select count(*) as cantidad
+            select count(*) as cantidad, genero
             from ocupante o
             inner join persona p on o.id_persona = p.id_persona
             where datediff(o.fecha_fallecimiento, o.fecha_nacimiento) > 60
@@ -71,7 +71,7 @@ class InformeOcupantesControl extends Controller
     public static function getAdultos($estado)
     {
         $adultos = DB::select("
-            select count(*) as cantidad
+            select count(*) as cantidad, genero
             from ocupante o
             inner join persona p on o.id_persona = p.id_persona
             where datediff(o.fecha_fallecimiento, o.fecha_nacimiento) >= 30 and datediff(o.fecha_fallecimiento, o.fecha_nacimiento) < 60
